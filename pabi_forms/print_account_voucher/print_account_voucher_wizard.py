@@ -5,32 +5,32 @@ from openerp.exceptions import ValidationError
 #     import INVOICE_DOCTYPE
 
 DOCTYPE_REPORT_MAP = {
-    'supplier_net_payment': {
+    'receipt_for_customer': {
         'en': {
             'sale': False,
             'purchase': False,
             'receipt': False,
-            'payment': 'supplier_netpay_form_en',
+            'payment': 'receipt_for_customer_form_en',
         },
         'th': {
             'sale': False,
             'purchase': False,
             'receipt': False,
-            'payment': 'supplier_netpay_form_th',
+            'payment': 'receipt_for_customer_form_th',
         }
     },
-    'wa_fine_and_retention': {
+    'receipt_for_supplier': {
         'en': {
             'sale': False,
             'purchase': False,
             'receipt': False,
-            'payment': 'wa_fine_and_retention_form_en',
+            'payment': 'receipt_for_supplier_form_en',
         },
         'th': {
             'sale': False,
             'purchase': False,
             'receipt': False,
-            'payment': 'wa_fine_and_retention_form_th',
+            'payment': 'receipt_for_supplier_form_th',
         }
     },
     'customer_receipt': {
@@ -159,6 +159,6 @@ class PrintAccountVoucherWizard(models.TransientModel):
                        ('customer_tax_receipt', 'Tax Receipt'),
                        ('customer_tax_receipt200', 'Tax Receipt 200%'), ]
             elif voucher.type == 'payment':
-                return [('supplier_net_payment', 'Net Payment'),
-                        ('wa_fine_and_retention', 'Wa Fine and Retention')]
+                return [('receipt_for_customer', 'Receipt For Customer'),
+                        ('receipt_for_supplier', 'Receipt For Supplier')]
         return []

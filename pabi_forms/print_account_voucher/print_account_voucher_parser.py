@@ -9,25 +9,25 @@ def print_account_voucher_parser(cr, uid, ids, data, context):
 
 
 jasper_reports.report_jasper(
-    'report.supplier_netpay_form_en',
+    'report.receipt_for_customer_form_en',
     'account.voucher',  # Model View name
     parser=print_account_voucher_parser
 )
 
 jasper_reports.report_jasper(
-    'report.supplier_netpay_form_th',
+    'report.receipt_for_customer_form_th',
     'account.voucher',  # Model View name
     parser=print_account_voucher_parser
 )
 
 jasper_reports.report_jasper(
-    'report.wa_fine_and_retention_form_en',
+    'report.receipt_for_supplier_form_en',
     'account.voucher',  # Model View name
     parser=print_account_voucher_parser
 )
 
 jasper_reports.report_jasper(
-    'report.wa_fine_and_retention_form_th',
+    'report.receipt_for_supplier_form_th',
     'account.voucher',  # Model View name
     parser=print_account_voucher_parser
 )
