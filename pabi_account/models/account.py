@@ -45,7 +45,6 @@ class AccountMove(models.Model):
     )
 
     @api.multi
-    @api.depends('document_id')
     def _compute_date_document(self):
         for rec in self:
             # Special case, clear undue VAT only
