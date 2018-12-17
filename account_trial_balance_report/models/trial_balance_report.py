@@ -33,6 +33,12 @@ class AccountTrailBalanceReport(models.Model):
         string='With Movement',
         readonly=True,
     )
+    charge_type = fields.Selection(
+        [('internal', 'Internal'),
+         ('external', 'External')],
+        string='Charge Type',
+        readonly=True,
+    )
     line_ids = fields.One2many(
         'account.trial.balance.line',
         'report_id',
