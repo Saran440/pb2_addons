@@ -90,7 +90,8 @@ class AccountTrailBalanceReport(models.Model):
         domain = [('account_id', '=', account.id),
                   ('centralisation', '=', 'normal'),
                   ('date', '>=', report.date_start),
-                  ('date', '<=', report.date_stop), ]
+                  ('date', '<=', report.date_stop),
+                  ('charge_type', '=', report.charge_type)]
         if target_move == 'posted':
             domain += [('move_id.state', '=', 'posted')]
         focus_moves = MoveLine.search(domain)
@@ -222,7 +223,8 @@ class AccountTrailBalanceLine(models.Model):
         rpt = self.report_id
         _x, moves = TB._get_moves(rpt.fiscalyear_id.id,
                                   rpt.date_start, rpt.date_stop,
-                                  rpt.target_move, rpt.with_movement)
+                                  rpt.target_move, rpt.with_movement,
+                                  rpt.charge_type)
         move_ids = []
         if move_type == 'debit':
             moves = TB._get_focus_moves(rpt, self.account_id, rpt.target_move)
@@ -254,5 +256,6 @@ class AccountTrailBalanceLine(models.Model):
             'type': 'ir.actions.act_window',
             'context': self._context,
             'nodestroy': True,
-            'domain': [('id', 'in', move_ids)],
+            'domain': [('id', 'in', move_ids),
+                       ('charge_type', '=', rpt.charge_type)],
         }
