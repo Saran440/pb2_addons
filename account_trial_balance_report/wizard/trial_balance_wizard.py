@@ -42,6 +42,15 @@ class AccountTrialBalanceWizard(models.TransientModel):
         required=True,
         default='posted',
     )
+    charge_type = fields.Selection(
+        [('internal', 'Internal'),
+         ('external', 'External')],
+        string='Charge Type',
+        required=True,
+        default='external',
+        help="Specify whether the move line is for Internal Charge or "
+        "External Charge. Only expense internal charge to be set as internal",
+    )
     with_movement = fields.Boolean(
         string='With Movement',
         default=True,
@@ -70,7 +79,8 @@ class AccountTrialBalanceWizard(models.TransientModel):
                                        self.date_start,
                                        self.date_stop,
                                        self.target_move,
-                                       self.with_movement)
+                                       self.with_movement,
+                                       self.charge_type)
         action = self.env.ref('account_trial_balance_report.'
                               'action_account_trial_balance_report')
         result = action.read()[0]

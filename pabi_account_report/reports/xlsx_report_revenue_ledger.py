@@ -27,6 +27,11 @@ class XLSXReportRevenueLedger(models.TransientModel):
         compute='_compute_count_chartfield',
         string='Budget Count',
     )
+    charge_type = fields.Selection(
+        [('internal', 'Internal'),
+         ('external', 'External')],
+        string='Charge Type',
+    )
     results = fields.Many2many(
         'pabi.common.account.report.view',
         string='Results',
@@ -75,6 +80,8 @@ class XLSXReportRevenueLedger(models.TransientModel):
             dom += [('invoice_posting_date', '>=', self.date_start)]
         if self.date_end:
             dom += [('invoice_posting_date', '<=', self.date_end)]
+        if self.charge_type:
+            dom += [('charge_type', '=', self.charge_type)]
         self.results = Result.search(dom).sorted(
                        key=lambda l: (l.charge_type,
                                       l.account_id.code,
