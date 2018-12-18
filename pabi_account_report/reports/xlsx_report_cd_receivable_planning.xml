@@ -8,13 +8,13 @@
             <field name="mode">primary</field>
             <field name="arch" type="xml">
                 <xpath expr="//notebook[@name='additional_criteria']" position="inside">
-                    <page string="Customer CD Filters">
+                    <page string="Customer Filters">
                         <separator string="Print only" colspan="4"/>
-                        <field name="borrower_partner_ids"/>
+                        <field name="partner_ids" domain="[('company_id', '=', company_id), ('customer', '=', True)]"/>
                     </page>
-                    <page string="Customer (bank) Filters">
+                    <page string="Bank Filters">
                         <separator string="Print only" colspan="4"/>
-                        <field name="partner_ids"/>
+                        <field name="bank_ids"/>
                     </page>
                 </xpath>
             </field>

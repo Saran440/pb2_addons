@@ -98,8 +98,7 @@ class PrevFYCommon(object):
             if not prev_fy:
                 return
             ctx = {'plan_fiscalyear_id': plan.fiscalyear_id.id,
-                   'prev_fiscalyear_id': prev_fy.id,
-                   'lang': 'th_TH'}
+                   'prev_fiscalyear_id': prev_fy.id}
             # Lookup for previous year performance only
             domain = []
             # filter: 1 = Previous Year Only, 2 = Prev and Current Planning

@@ -4,9 +4,9 @@
 
         <template id="report_customer_dunning_letter">
             <t t-call="report.html_container">
-                <t t-foreach="docs" t-as="o">
+                <t t-foreach="doc_ids" t-as="doc_id">
                     <t t-call="pabi_partner_dunning_report.customer_dunning_letter_layout">
-                        <div class="page page_report_customer_dunning_letter">
+                        <div class="page pabi-page">
                             <table class="table table-condensed">
                                 <tbody>
                                     <!-- Column Detail -->

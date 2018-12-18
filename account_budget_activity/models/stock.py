@@ -17,9 +17,8 @@ class StockPicking(models.Model):
     def _compute_budget_commit_ids(self):
         Analytic = self.env['account.analytic.line']
         for rec in self:
-            if rec.name:
-                rec.budget_commit_ids = \
-                    Analytic.search([('move_id.document', '=', rec.name)])
+            rec.budget_commit_ids = \
+                Analytic.search([('move_id.document', '=', rec.name)])
 
 
 class StockMove(ActivityCommon, models.Model):

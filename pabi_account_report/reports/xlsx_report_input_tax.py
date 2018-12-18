@@ -36,21 +36,10 @@ class XLSXReportInputTax(models.TransientModel):
         2. Check document type is purchase (doc_type = purchase)
         """
         self.ensure_one()
-        model = 'account.tax.report'
-        where = "doc_type = 'purchase' \
-                 and (move_id is not null or invoice_tax_id is not null or \
-                 voucher_tax_id is not null)"
+        Result = self.env['account.tax.report']
+        dom = [('doc_type', '=', 'purchase')]
         if self.calendar_period_id:
-            where += " and report_period_id = %s" \
-                % (str(self.calendar_period_id.id))
+            dom += [('report_period_id', '=', self.calendar_period_id.id)]
         if self.taxbranch_id:
-            where += " and taxbranch_id = %s" % (str(self.taxbranch_id.id))
-        self._cr.execute("""
-            select id from %s where %s""" % (model.replace('.', '_'), where))
-        report_ids = map(lambda l: l[0], self._cr.fetchall())
-        # --
-        Result = self.env[model]
-        dom = [('id', '=', 0)]
-        if report_ids:
-            dom = [('id', 'in', report_ids)]
+            dom += [('taxbranch_id', '=', self.taxbranch_id.id)]
         self.results = Result.search(dom, order='tax_sequence_display')

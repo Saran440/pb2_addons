@@ -292,19 +292,13 @@ class AccountAsset(ChartFieldAction, models.Model):
         string='Brand',
         size=100,
         readonly=True,
-        states={
-            'draft': [('readonly', False)],
-            'open': [('readonly', False)],
-        },
+        states={'draft': [('readonly', False)]},
     )
     asset_model = fields.Char(
         string='Model',
         size=100,
         readonly=True,
-        states={
-            'draft': [('readonly', False)],
-            'open': [('readonly', False)],
-        },
+        states={'draft': [('readonly', False)]},
     )
     # Transfer Asset
     target_asset_ids = fields.Many2many(

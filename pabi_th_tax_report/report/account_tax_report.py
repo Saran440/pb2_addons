@@ -92,17 +92,6 @@ class AccountTaxReport(models.Model):
         related='move_id.validate_user_id',
         string='Validated By',
     )
-    tax = fields.Char(
-        string='Tax',
-    )
-    invoice_tax_id = fields.Many2one(
-        'account.invoice.tax',
-        string='Invoice Tax',
-    )
-    voucher_tax_id = fields.Many2one(
-        'account.voucher.tax',
-        string='Voucher Tax',
-    )
 
     def _select(self):
         # res = """
@@ -141,10 +130,7 @@ class AccountTaxReport(models.Model):
             rp.taxbranch as taxbranch,
             atd.base as base,
             atd.amount as amount,
-            atd.taxbranch_id, number_preprint,
-            at.description as tax,
-            atd.invoice_tax_id,
-            atd.voucher_tax_id
+            atd.taxbranch_id, number_preprint
         """
         return res
 
@@ -157,7 +143,6 @@ class AccountTaxReport(models.Model):
             left outer join res_partner_title rpt on rp.title = rpt.id
             left outer join account_period ap on atd.period_id = ap.id
             left outer join account_move am on am.id = atd.ref_move_id
-            join account_tax at on atd.tax_id = at.id
             where report_period_id is not null
             order by year, month, tax_sequence, id
         )""" % (self._table, self._select(), )

@@ -24,8 +24,7 @@ class StockPicking(models.Model):
                         for move in picking.move_lines:
                             product = move.product_id
                             if move.product_id.asset:
-                                move.asset_value = \
-                                    asset_values.get(product.id, 0.0)
+                                move.asset_value = asset_values[product.id]
                             else:
                                 move.asset_value = False
             else:  # Clear all asset_value

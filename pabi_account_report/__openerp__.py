@@ -68,8 +68,7 @@
         'reports/xlsx_report_expense_ledger.xml',
         'reports/xlsx_report_revenue_ledger.xml',
         'reports/xlsx_report_gl_allowance_doubtful_accounts.xml',
-        # 'reports/xlsx_report_gl_expenditure.xml',
-        'reports/xlsx_report_gl_project.xml',
+        'reports/xlsx_report_gl_expenditure.xml',
         # Asset Reports
         'reports/asset_repair_report.xml',
         'reports/asset_register_report.xml',

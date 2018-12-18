@@ -24,7 +24,7 @@ class AccountInvoice(models.Model):
         string='Clear Prepaid Journal Entry',
         readonly=True,
         index=True,
-        ondelete='set null',
+        ondelete='restrict',
         copy=False,
     )
     purchase_ids = fields.Many2many(

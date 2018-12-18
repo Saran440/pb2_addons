@@ -183,6 +183,4 @@ class PABIPartnerDunningLetterLine(models.Model):
     @api.depends('move_line_id')
     def _compute_amount_residual(self):
         for line in self:
-            move_line = line.move_line_id
-            sign = move_line.debit - move_line.credit < 0 and -1 or 1
-            line.amount_residual = sign * abs(move_line.amount_residual)
+            line.amount_residual = line.move_line_id.amount_residual

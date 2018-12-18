@@ -52,15 +52,12 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_invoice_create(self):
-        self.ensure_one()
-        if self.origin:
-            invoice_preprint = self.env['account.invoice'].search([
-                ('number_preprint', '=', self.origin)
-            ])
-            if invoice_preprint:
-                raise ValidationError(
-                    _('Source Document/Number Preprint %s is not unique!') %
-                    self.origin)
+        invoice_preprint = self.env['account.invoice'].search([
+            ('number_preprint', '=', self.origin)
+        ])
+        if invoice_preprint:
+            raise ValidationError(
+                _('Source Document/Number Preprint must be unique!'))
         res = super(SaleOrder, self).action_invoice_create()
         invoices = self.env['account.invoice'].browse(res)
         for invoice in invoices:
