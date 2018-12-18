@@ -509,17 +509,21 @@
                                 </t>
                             </t>
                             <span t-esc="reverse_doc"/>
-                        </t>
-                        <t t-if="o.doctype in ['payment']">
-                            <span>Paid To: </span>
-                            <t t-set="paid_to" t-value="''"/>
-                            <t t-if="o.partner_id">
-                                <t t-set="paid_to" t-value="o.partner_id.name"/>
+                            <t t-if="o.doctype in ['payment']">
+                                <div class="row">
+                                    <div class="col-xs-7">
+                                        <span>Paid To: </span>
+                                        <t t-set="paid_to" t-value="''"/>
+                                        <t t-if="o.partner_id">
+                                            <t t-set="paid_to" t-value="o.partner_id.name"/>
+                                        </t>
+                                        <t t-if="o.document_id and o.document_id.is_transdebt and o.document_id.transdebt_partner_id">
+                                            <t t-set="paid_to" t-value="o.document_id.transdebt_partner_id.name"/>
+                                        </t>
+                                        <span t-esc="paid_to"/>
+                                    </div>
+                                </div>
                             </t>
-                            <t t-if="o.document_id and o.document_id.is_transdebt and o.document_id.transdebt_partner_id">
-                                <t t-set="paid_to" t-value="o.document_id.transdebt_partner_id.name"/>
-                            </t>
-                            <span t-esc="paid_to"/>
                         </t>
                     </div>
                 </div>
