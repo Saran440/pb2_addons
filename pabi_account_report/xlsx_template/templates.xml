@@ -594,7 +594,7 @@
                             'results': {
                                 'A13': 'voucher_id.period_id.fiscalyear_id.name${value or ""}',
                                 'B13': 'voucher_id.number${value or ""}',
-                                'C13': 'invoice_id.source_document_id${value and value.display_name or ""}',
+                                'C13': "${'=IF(?(V13)&lt;&gt;\"\",?(V13),?(W13))'}",
                                 'D13': 'invoice_id.number${value or ""}',
                                 'E13': 'invoice_id.comment${value or ""}',
                                 'F13': 'invoice_id.partner_id.search_key${value or ""}',
@@ -610,9 +610,11 @@
                                 'P13': 'business_day${value or 0}',
                                 #'P13': '${"=NETWORKDAYS(?(O13),?(N13),Holliday!B:B)"}',
                                 'Q13': "${'=IF(?(P13)&lt;=5,\"Yes\",\"No\")'}",
-                                'R13': "${'=IF(?(K13)=\"Cheque\",?(V13),\"\")'}",
+                                'R13': "${'=IF(?(K13)=\"Cheque\",?(X13),\"\")'}",
                                 # hide column
-                                'V13': 'voucher_id.move_ids${value and value.mapped("match_import_id") and value.mapped("match_import_id").date_value or ""}#{number_format=date}',
+                                'V13': 'invoice_id.source_document_id${value and value.display_name or ""}',
+                                'W13': 'salary_number${value or ""}',
+                                'X13': 'voucher_id.move_ids${value and value.mapped("match_import_id") and value.mapped("match_import_id").date_value or ""}#{number_format=date}',
                             }
                         }
                     }
