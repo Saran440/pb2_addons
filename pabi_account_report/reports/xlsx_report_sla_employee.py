@@ -201,14 +201,8 @@ class XLSXReportSLAEmployee(models.TransientModel):
         self.ensure_one()
         Result = self.env['sla.employee.view']
         dom = []
-<<<<<<< HEAD
         # dom = [('invoice_id.source_document_type', 'in',
         # ['advance', 'expense']),
-=======
-        # dom = ['|', ('doctype', '=', 'salary_expense'),
-        #        ('invoice_id.source_document_type', 'in',
-        #        ['advance', 'expense'])]
->>>>>>> c65eaeee935c42dbda533fae0ef591bbb29af14f
         # ('expense_id.pay_to', '!=', 'supplier')]
         if self.user_ids:
             dom += [('voucher_id.validate_user_id', 'in', self.user_ids.ids)]
