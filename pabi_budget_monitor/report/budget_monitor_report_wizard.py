@@ -27,6 +27,15 @@ class BudgetMonitorReportWizard(models.TransientModel):
          ('expense', 'Expense')],
         string='Budget Method',
     )
+    charge_type = fields.Selection(
+        [('internal', 'Internal'),
+         ('external', 'External')],
+        string='Charge Type',
+    )
+    groupby_quarter = fields.Boolean(
+        string='Quarter',
+        default=False,
+    )
     # Unit Base
     org_id = fields.Many2one(
         'res.org',
@@ -156,9 +165,9 @@ class BudgetMonitorReportWizard(models.TransientModel):
         if self.fiscalyear_id:
             domain.append(('fiscalyear_id', '=', self.fiscalyear_id.id))
         if self.from_period_id:
-            domain.append(('from_period_id', '=', self.from_period_id.id))
+            domain.append(('period_id', '>=', self.from_period_id.id))
         if self.to_period_id:
-            domain.append(('to_period_id', '=', self.to_period_id.id))
+            domain.append(('period_id', '<=', self.to_period_id.id))
         # Budgets
         chartfield = self.chartfield_ids
         if chartfield:
@@ -196,20 +205,41 @@ class BudgetMonitorReportWizard(models.TransientModel):
     def _get_filter_by_chart_view(self):
         chart_view_dict = {
             'unit_base': ['org_id', 'sector_id', 'subsector_id',
-                          'division_id', 'section_id'],
+                          'division_id', 'section_id', 'charge_type'],
             'project_base': ['functional_area_id', 'program_group_id',
-                             'program_id', 'project_group_id', 'project_id'],
-            'invest_asset': ['invest_asset_id'],
-            'invest_construction': ['invest_construction_phase_id'],
+                             'program_id', 'project_group_id', 'project_id',
+                             'charge_type', 'org_id', 'sector_id',
+                             'subsector_id', 'division_id', 'section_id'],
+            'invest_asset': ['invest_asset_id', 'charge_type', 'org_id',
+                             'sector_id', 'subsector_id', 'division_id',
+                             'section_id'],
+            'invest_construction': ['invest_construction_phase_id',
+                                    'charge_type', 'org_id', 'sector_id',
+                                    'subsector_id', 'division_id',
+                                    'section_id'],
             'personnel': ['personnel_costcenter_id'],
         }
         domain = []
         if not self.chart_view:
+            if self.charge_type:
+                domain.append(('charge_type', '=', self.charge_type))
+            if self.org_id:
+                domain.append(('org_id', '=', self.org_id.id))
+            if self.sector_id:
+                domain.append(('sector_id', '=', self.sector_id.id))
+            if self.subsector_id:
+                domain.append(('subsector_id', '=', self.subsector_id.id))
+            if self.division_id:
+                domain.append(('division_id', '=', self.division_id.id))
+            if self.section_id:
+                domain.append(('section_id', '=', self.section_id.id))
             return domain
         todos = chart_view_dict[self.chart_view]
         for field in todos:
-            if self[field]:
+            if self[field] and field != 'charge_type':
                 domain.append((field, '=', self[field].id))
+            elif field == 'charge_type' and self.charge_type:
+                domain.append((field, '=', self.charge_type))
         return domain
 
     @api.model
@@ -271,3 +301,30 @@ class BudgetMonitorReportWizard(models.TransientModel):
         result.update({'display_name': report_name})
         result.update({'name': report_name})
         return result
+
+    @api.onchange('chart_view')
+    def _onchange_chart_view_filter(self):
+        self.charge_type = False
+        self.personnel_costcenter_id = False
+        self.invest_asset_id = False
+        self.org_id = False
+        self.sector_id = False
+        self.subsector_id = False
+        self.division_id = False
+        self.section_id = False
+        self.functional_area_id = False
+        self.program_group_id = False
+        self.program_id = False
+        self.project_group_id = False
+        self.project_id = False
+        self.invest_construction_phase_id = False
+        self.groupby_org = False
+        self.groupby_sector = False
+        self.groupby_subsector = False
+        self.groupby_division = False
+        self.groupby_section = False
+        self.groupby_functional_area = False
+        self.groupby_program_group = False
+        self.groupby_program = False
+        self.groupby_project_group = False
+        self.groupby_project = False
