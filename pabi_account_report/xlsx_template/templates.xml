@@ -71,7 +71,7 @@
                                 'B8': '${time.strftime("%d/%m/%Y")}#{number_format=date}',
                             },
                             'partner_detail_results': {
-                                'A11': 'search_key${value or ""}',
+                                'A11': 'search_key${value or ""}#{number_format=text}',
                                 'B11': 'id${value and " ".join(list(filter(lambda l: l != False, [env["res.partner"].browse(value).title.name, env["res.partner"].browse(value).name]))) or ""}',
                                 'C11': 'is_company${value and "X" or ""}',
                                 'D11': 'customer${value and "X" or ""}',
@@ -84,7 +84,7 @@
                                 'K11': 'district_id.name${value or ""}',
                                 'L11': 'province_id.name${value or ""}',
                                 'M11': 'country_id.name${value or ""}',
-                                'N11': 'zip${value or ""}',
+                                'N11': 'zip${value or ""}#{number_format=text}',
                                 'O11': 'vat${value or ""}#{number_format=text}',
                                 'P11': 'taxbranch${value or ""}',
                                 'Q11': 'mobile${value or ""}',
@@ -94,13 +94,13 @@
                                 'U11': 'customer_legacy_code${value or ""}',
                                 'V11': 'supplier_legacy_code${value or ""}',
                                 'W11': 'comment${value or ""}',
-                                'X11': 'property_account_payable.code${value or ""}',
+                                'X11': 'property_account_payable.code${value or ""}#{number_format=text}',
                                 'Y11': 'property_account_payable.name${value or ""}',
-                                'Z11': 'property_account_receivable.code${value or ""}',
+                                'Z11': 'property_account_receivable.code${value or ""}#{number_format=text}',
                                 'AA11': 'property_account_receivable.name${value or ""}',
                                 'AB11': 'property_supplier_payment_term.name${value or ""}',
                                 'AC11': 'property_payment_term.name${value or ""}',
-                                'AD11': 'bank_ids${value and (value.filtered(lambda l: l.default is True) and value.filtered(lambda l: l.default is True)[0].acc_number or "") or ""}',
+                                'AD11': 'bank_ids${value and (value.filtered(lambda l: l.default is True) and value.filtered(lambda l: l.default is True)[0].acc_number or "") or ""}#{number_format=text}',
                                 'AE11': 'bank_ids${value and (value.filtered(lambda l: l.default is True) and " ".join(filter(lambda x: x != False, [value.with_context(lang="th_TH").filtered(lambda l: l.default is True)[0].bank.name, value.with_context(lang="th_TH").filtered(lambda l: l.default is True)[0].bank_branch.name])) or "") or ""}',
                                 'AF11': 'bank_ids${value and (value.filtered(lambda l: l.default is True) and " ".join(filter(lambda x: x != False, [value.with_context(lang="th_TH").filtered(lambda l: l.default is True)[0].partner_id.title.name, value.with_context(lang="th_TH").filtered(lambda l: l.default is True)[0].partner_id.name])) or "") or ""}',
                                 'AG11': 'bank_ids${value and (value.filtered(lambda l: l.default is True) and (value.filtered(lambda l: l.default is True)[0].active is True and "X" or "") or "") or ""}',
@@ -124,9 +124,9 @@
                                 'B8': '${time.strftime("%d/%m/%Y")}#{number_format=date}',
                             },
                             'partner_bank_account_detail_results': {
-                                'A11': 'partner_id.search_key${value or ""}',
+                                'A11': 'partner_id.search_key${value or ""}#{number_format=text}',
                                 'B11': 'partner_id${value and " ".join(list(filter(lambda l: l != False, [value.title.name, value.name]))) or ""}',
-                                'C11': 'bank_id.acc_number${value or ""}',
+                                'C11': 'bank_id.acc_number${value or ""}#{number_format=text}',
                                 'D11': 'bank_id${value and " ".join(list(filter(lambda l: l != False, [value.bank.name, value.bank_branch.name]))) or ""}',
                                 'E11': 'bank_id.partner_id${value and " ".join(list(filter(lambda l: l != False, [value.title.name, value.name]))) or ""}',
                                 'F11': 'bank_id${value and (value.active is True and "X" or "") or ""}',
@@ -171,6 +171,14 @@
                                 'L9': "${'=IF(AND(?(J9)&lt;&gt;\"\",?(J9)&gt;=1,?(J9)&lt;=15),?(I9),\"\")'}#{number_format=number}",
                                 'M9': "${'=IF(AND(?(J9)&lt;&gt;\"\",?(J9)&gt;=16,?(J9)&lt;=30),?(I9),\"\")'}#{number_format=number}",
                                 'N9': "${'=IF(AND(?(J9)&lt;&gt;\"\",?(J9)&gt;30),?(I9),\"\")'}",
+                            },
+                            '_TAIL_0': {
+                                'A9': '${"Total"}#{font=bold}',
+                                'I9': '@{sum}#{font=bold;number_format=number}',
+                                'K9': '@{sum}#{font=bold;number_format=number}',
+                                'L9': '@{sum}#{font=bold;number_format=number}',
+                                'M9': '@{sum}#{font=bold;number_format=number}',
+                                'N9': '@{sum}#{font=bold;number_format=number}',
                             }
                         },
                     }
@@ -374,7 +382,7 @@
                                 'AH9': 'period_length_days${value * 4}',
                             },
                             'results': {
-                                'A16': 'partner_id.search_key${value or ""}',
+                                'A16': 'partner_id.search_key${value or ""}#{number_format=text}',
                                 'B16': 'partner_id${value and " ".join(list(filter(lambda l: l != False, [value.title.name, value.name]))) or ""}',
                                 'C16': 'supplier_invoice_number${value or ""}',
                                 'D16': 'purchase_billing_id.name${value or ""}',
@@ -505,7 +513,7 @@
                                 'N11': 'invoice_id.date_invoice${value or ""}#{number_format=date}',
                                 'O11': 'invoice_id.date_due${value or ""}#{number_format=date}',
                                 'P11': 'invoice_id.date_receipt_billing${value or ""}#{number_format=date}',
-                                'Q11': 'invoice_id.user_id.display_name${value or ""}',
+                                'Q11': 'invoice_id.validate_user_id.display_name${value or ""}',
                                 'R11': 'invoice_id.state${value and dict(draft="Draft", proforma="Pro-forma", proforma2="Pro-forma", open="Open", paid="Paid", cancel="Cancelled")[value] or ""}',
                             },
                             '_TAIL_0': {
@@ -610,7 +618,9 @@
                                 'P13': 'business_day${value or 0}',
                                 #'P13': '${"=NETWORKDAYS(?(O13),?(N13),Holliday!B:B)"}',
                                 'Q13': "${'=IF(?(P13)&lt;=5,\"Yes\",\"No\")'}",
-                                'R13': 'voucher_id.move_ids${value and value.mapped("match_import_id") and value.mapped("match_import_id").date_value or ""}#{number_format=date}',
+                                'R13': "${'=IF(?(K13)=\"Cheque\",?(V13),\"\")'}",
+                                # hide column
+                                'V13': 'voucher_id.move_ids${value and value.mapped("match_import_id") and value.mapped("match_import_id").date_value or ""}#{number_format=date}',
                             }
                         }
                     }
@@ -1882,7 +1892,7 @@ result = pd.pivot_table(df, index=groupby,
                              'AE27': 'responsible_user_id${value and value.with_context(lang="th_TH").name or ""}#{number_format=text}',
                              'AF27': 'partner_id${value and value.search_key or ""}#{number_format=text}',
                              'AG27': 'partner_id${value and value.name or ""}#{number_format=text}',
-                             'AH27': 'purchase_id${value and value.name or ""}#{number_format=text}',
+                             'AH27': "${'=IF(?(BH27)&lt;&gt;\"\",?(BH27),IF(?(BI27)&lt;&gt;\"\",?(BI27),\"\"))'}",
                              'AI27': 'purchase_request_id${value and value.name or ""}#{number_format=text}',
                              'AJ27': 'asset_purchase_method_id${value and value.name or ""}#{number_format=text}',
                              'AK27': 'doc_request_id${value and value.code or ""}#{number_format=text}',
@@ -1905,6 +1915,9 @@ result = pd.pivot_table(df, index=groupby,
                              'BB27': 'adjust_id${value and value.name or ""}#{number_format=text}',
                              'BC27': 'status${value and value.name or ""}#{number_format=text}',
                              'BD27': 'date_remove${value or ""}#{number_format=date}',
+                             # Hide column
+                             'BH27': 'purchase_id${value and value.name or ""}#{number_format=text}',
+                             'BI27': 'adjust_id${value and value.ship_purchase_id.name or ""}#{number_format=text}',
                          }
                      },
                      'Accum. Depre. Group By GL': {
@@ -1948,7 +1961,7 @@ result = pd.pivot_table(df, index=groupby,
                         'results': {
                             'A1': "${'1'}",
                             'B1': '${"=ROW()"}',
-                            'C1': 'partner_id.vat${value or ""}',
+                            'C1': 'partner_id.vat${value or ""}#{number_format=text}',
                             'D1': '${""}',
                             'E1': 'partner_id.title${value and value.name or ""}',
                             'F1': 'partner_id.name${value or ""}',
@@ -1959,6 +1972,7 @@ result = pd.pivot_table(df, index=groupby,
                             'K1': 'amount_wht${value and -value or ""}',
                             'L1': '${"1"}',
                             'M1': 'wht_cert_income_type${value and value=="1" and "1" or (value=="2" and "4" or "")}',
+                            'N1': 'voucher_id${value and value.number or ""}',
                          },
                      }
                  }
