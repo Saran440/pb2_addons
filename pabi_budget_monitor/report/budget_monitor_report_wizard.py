@@ -165,9 +165,11 @@ class BudgetMonitorReportWizard(models.TransientModel):
         if self.fiscalyear_id:
             domain.append(('fiscalyear_id', '=', self.fiscalyear_id.id))
         if self.from_period_id:
-            domain.append(('period_id', '>=', self.from_period_id.id))
+            domain.append(
+                ('period_id.date_start', '>=', self.from_period_id.date_start))
         if self.to_period_id:
-            domain.append(('period_id', '<=', self.to_period_id.id))
+            domain.append(
+                ('period_id.date_stop', '<=', self.to_period_id.date_stop))
         # Budgets
         chartfield = self.chartfield_ids
         if chartfield:
