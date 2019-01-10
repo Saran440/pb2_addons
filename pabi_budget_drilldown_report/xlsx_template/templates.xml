@@ -460,5 +460,88 @@
               }
           </field>
         </record>
+
+        # Account Analytic Line View (when click drilldown button)
+        <record id="account_analytic_line_view_xlsx_template" model="ir.attachment">
+            <field name="res_model">xlsx.account.analytic.line.view</field>
+            <field name="datas"></field>
+            <field name="datas_fname">account_analytic_line_report.xlsx</field>
+            <field name="name">Account Analytic Line View</field>
+            <field name="parent_id" eval="ref('dir_budget_drilldown_template')"/>
+            <field name="description">
+              {
+                '__EXPORT__': {
+                    'Budget Lines': {
+                        'results': {
+                            'A2': 'fiscalyear_id${value and value.name or ""}',
+                            'B2': 'period_id${value and value.name or ""}',
+                            'C2': 'charge_type${value or ""}',
+                            'D2': 'document${value or ""}',
+                            'E2': 'source_document${value or ""}',
+                            'F2': 'docline_sequence${value or ""}',
+                            'G2': 'date_document${value or ""}',
+                            'H2': 'date${value or ""}',
+                            'I2': 'ref${value or ""}',
+                            'J2': 'contract_id${value or ""}',
+                            'K2': 'budget_code${value or ""}',
+                            'L2': 'budget_name${value or ""}',
+                            'M2': 'negate_amount${value or ""}',
+                            'N2': 'name${value or ""}',
+                            'O2': 'activity_group_code${value or ""}',
+                            'P2': 'activity_group_name${value or ""}',
+                            'Q2': 'activity_code${value or ""}',
+                            'R2': 'activity_name${value or ""}',
+                            'S2': 'activity_rpt_code${value or ""}',
+                            'T2': 'activity_rpt_name${value or ""}',
+                            'U2': 'docline_account_code${value or ""}',
+                            'V2': 'docline_account_name${value or ""}',
+                            'W2': 'categ_id${value or ""}',
+                            'X2': 'product_code${value or ""}',
+                            'Y2': 'product_name${value or ""}',
+                            'Z2': 'purchase_method_id${value or ""}',
+                            'AA2': 'partner_code${value or ""}',
+                            'AB2': 'partner_name${value or ""}',
+                            'AC2': 'costcenter_code${value or ""}',
+                            'AD2': 'costcenter_name${value or ""}',
+                            'AE2': 'division_name${value or ""}',
+                            'AF2': 'subsector_name${value or ""}',
+                            'AG2': 'sector_name${value or ""}',
+                            'AH2': 'org_name${value or ""}',
+                            'AI2': 'mission_name${value or ""}',
+                            'AJ2': 'job_order_group_code${value or ""}',
+                            'AK2': 'job_order_group_name${value or ""}',
+                            'AL2': 'job_order_code${value or ""}',
+                            'AM2': 'job_order_name${value or ""}',
+                            'AN2': 'section_program_name${value or ""}',
+                            'AO2': 'project_group_name${value or ""}',
+                            'AP2': 'program_name${value or ""}',
+                            'AQ2': 'program_group_name${value or ""}',
+                            'AR2': 'functional_area_name${value or ""}',
+                            'F2': 'project_manager_code${value or ""}',
+                            'F2': 'project_manager_name${value or ""}',
+                            'F2': 'fund_name${value or ""}',
+                            'F2': 'fund_type${value or ""}',
+                            'F2': 'date_start_project${value or ""}',
+                            'F2': 'date_end_project${value or ""}',
+                            'F2': 'date_start_spending${value or ""}',
+                            'F2': 'date_end_spending${value or ""}',
+                            'F2': 'date_start_contract${value or ""}',
+                            'F2': 'date_end_contract${value or ""}',
+                            'F2': 'reason${value or ""}',
+                            'F2': 'project_c_code${value or ""}',
+                            'F2': 'project_c_name${value or ""}',
+                            'F2': 'date_start_project_c${value or ""}',
+                            'F2': 'date_end_project_c${value or ""}',
+                            'F2': 'date_start_project_phase${value or ""}',
+                            'F2': 'date_end_project_phase${value or ""}',
+                            'F2': 'date_start_contract_project_phase${value or ""}',
+                            'F2': 'date_end_contract_project_phase${value or ""}',
+                            'F2': 'doctype${value or ""}',
+                        },
+                    }
+                }
+              }
+          </field>
+        </record>
     </data>
 </openerp>

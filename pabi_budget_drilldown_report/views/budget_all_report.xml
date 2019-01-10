@@ -16,6 +16,8 @@
                                 <field name="released_amount" sum="Total"/>
                                 <field name="amount_pr_commit" sum="Total"/>
                                 <button name="open_pr_commit_items" string="PR Commit Items" icon="gtk-add" type="object"/>
+                                <button name="save_pr_commit_items" string="PR Commit Items" icon="gtk-floppy" type="object"/>
+                                <!-- <button name="%(action_account_analytic_line_view_xlsx)d" string="PR Commit Items" icon="gtk-floppy" type="action" context="{'type_commit':'PR'}"/> -->
                                 <field name="amount_po_commit" sum="Total"/>
                                 <button name="open_po_commit_items" string="PO Commit Items" icon="gtk-add" type="object"/>
                                 <field name="amount_exp_commit" sum="Total"/>
